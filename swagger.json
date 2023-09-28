@@ -1,0 +1,391 @@
+﻿{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger Service - OpenAPI 3.0",
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Service",
+      "description": "Access to Services"
+    }
+  ],
+  "paths": {
+    "/service": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Gets list of Services.",
+        "description": "Returns a list of Services",
+        "operationId": "list",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filter by device name.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "namePattern",
+            "in": "query",
+            "description": "Filter by device name pattern. In pattern wildcards '%' and '_' can be used.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "description": "Result list sort field.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Result list sort order. The sortField should be specified.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "description": "Number of records to take from the result list.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of records to skip from the result list.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/service"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If service is malformed"
+          },
+          "401": {
+            "description": "If service is not authorized"
+          },
+          "403": {
+            "description": "If principal doesn't have permissions"
+          },
+          "404": {
+            "description": "If service is not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/service/{id}": {
+      "post": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Send data to a service",
+        "description": "Send data to a service",
+        "operationId": "postToService",
+        "requestBody": {
+          "description": "Configuration Update body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/runService"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the order that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/runServiceResponce"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If service is malformed"
+          },
+          "401": {
+            "description": "If service is not authorized"
+          },
+          "403": {
+            "description": "If principal doesn't have permissions"
+          },
+          "404": {
+            "description": "If service is not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "get a specific device with id",
+        "description": "get a specific device with id",
+        "operationId": "getService",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the order that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/service"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If service is malformed"
+          },
+          "401": {
+            "description": "If service is not authorized"
+          },
+          "403": {
+            "description": "If principal doesn't have permissions"
+          },
+          "404": {
+            "description": "If service is not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Service"
+        ],
+        "summary": "Delete Service",
+        "description": "Deletes Service",
+        "operationId": "deleteService",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the order that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "If successful, this method returns an empty response body."
+          },
+          "400": {
+            "description": "If request is malformed"
+          },
+          "401": {
+            "description": "If request is not authorized"
+          },
+          "403": {
+            "description": "If principal doesn't have permissions"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "runService": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": 0
+          },
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "jsonString": {
+                "type": "string"
+              }
+            }
+          },
+          "dataTypeId": {
+            "type": "number"
+          }
+        },
+        "xml": {
+          "name": "runService"
+        }
+      },
+      "runServiceResponce": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": 0
+          },
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "dataTypeId": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string",
+            "example": "2023-09-27T19:15:17.817Z"
+          }
+        },
+        "xml": {
+          "name": "runServiceResponce"
+        }
+      },
+      "service": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": 0
+          },
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "dataTypeId": {
+            "type": "number"
+          },
+          "discription": {
+            "type": "string",
+            "example": "string"
+          },
+          "status": {
+            "type": "string",
+            "example": "Available"
+          }
+        },
+        "xml": {
+          "name": "service"
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
